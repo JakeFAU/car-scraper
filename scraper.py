@@ -47,7 +47,7 @@ for make in cars:
                 if src != None:
                     src  = str(src)
                     count+=1
-                    urllib.request.urlretrieve(src, os.path.join(path,model+str(count)+'.jpg'))
+                    urllib.request.urlretrieve(src, os.path.join(path,model+"_"+str(count)+'.jpg'))
                 else:
                     raise TypeError
             except Exception:
