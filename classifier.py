@@ -3,6 +3,7 @@ from tensorflow.keras.preprocessing import image
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Dense, GlobalAveragePooling2D
 from keras.preprocessing.image import ImageDataGenerator
+from sklearn.metrics import classification_report, confusion_matrix
 from keras import backend as K
 import os
 import io
@@ -136,7 +137,7 @@ for layer in model.layers[249:]:
 # we need to recompile the model for these modifications to take effect
 # we use SGD with a low learning rate
 from tensorflow.keras.optimizers import SGD
-model.compile(optimizer=SGD(lr=0.0001, momentum=0.9), loss='categorical_crossentropy')
+model.compile(optimizer=SGD(learning_rate=0.0001, momentum=0.9), loss='categorical_crossentropy')
 
 # we train our model again (this time fine-tuning the top 2 inception blocks
 # alongside the top Dense layers
@@ -147,3 +148,13 @@ model.fit(
     epochs=epochs,
     validation_data=validation_generator,
     validation_steps=487 // batch_size)
+
+
+
+Y_pred = model.predict(validation_generator, 1050 // batch_size+1)
+y_pred = np.argmax(Y_pred, axis=1)
+print('Confusion Matrix')
+print(confusion_matrix(validation_generator.classes, y_pred))
+print('Classification Report')
+target_names = cartypes
+print(classification_report(validation_generator.classes, y_pred, target_names=target_names))
