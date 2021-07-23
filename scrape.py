@@ -14,7 +14,7 @@ from selenium.webdriver.common.keys import Keys
 driver = webdriver.Edge(EdgeChromiumDriverManager().install())
 driver.get('https://www.google.com/')
 search = driver.find_element_by_name('q')
-search.send_keys('Toyota Corolla',Keys.ENTER)
+search.send_keys('Toyota 4Runner',Keys.ENTER)
 
 elem = driver.find_element_by_link_text('Images')
 elem.get_attribute('href')
@@ -34,7 +34,7 @@ for i in elements:
         if src != None:
             src  = str(src)
             count+=1
-            urllib.request.urlretrieve(src, os.path.join('images/toyota/corolla','corolla'+str(count)+'.jpg'))
+            urllib.request.urlretrieve(src, os.path.join('images/toyota/4runner','4runner'+str(count)+'.jpg'))
         else:
             raise TypeError
     except TypeError:
