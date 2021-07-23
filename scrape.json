@@ -1,0 +1,34 @@
+{
+	"cars": {
+		"Nissan": [{
+				"model": "Kicks"
+			},
+			{
+				"model": "Rogue"
+			},
+			{
+				"model": "Altima"
+			}
+		],
+		"Honda": [{
+				"model": "Civic"
+			},
+			{
+				"model": "Accord"
+			},
+			{
+				"model": "Pilot"
+			}
+		],
+		"Toyota": [{
+				"model": "Corolla"
+			},
+			{
+				"model": "Camary"
+			},
+			{
+				"model": "Highlander"
+			}
+		]
+	}
+}
