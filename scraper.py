@@ -34,10 +34,10 @@ for make in cars:
         elem.click()
 
         value = 0
-        for i in range(500): 
+        for i in range(200): 
             driver.execute_script('scrollBy("+ str(value) +",+100);')
             value += 100
-            time.sleep(2)
+            time.sleep(1)
 
         elements = driver.find_elements_by_xpath('//img[contains(@class,"rg_i")]')
         count = 0
@@ -50,6 +50,6 @@ for make in cars:
                     urllib.request.urlretrieve(src, os.path.join(path,model+str(count)+'.jpg'))
                 else:
                     raise TypeError
-            except TypeError:
+            except Exception:
                 pass
 
