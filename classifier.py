@@ -82,7 +82,7 @@ for cc in os.listdir(TEST_DIR):
 # some needed variables
 img_width, img_height = 224, 224
 epochs = 100
-batch_size = 8
+batch_size = 4
 
 if K.image_data_format() == 'channels_first':
     input_shape = (3, img_width, img_height)
