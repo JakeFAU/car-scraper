@@ -44,10 +44,12 @@ car_classes = os.listdir(FILTERED_BASE)
 for car_class in car_classes:
     tr_path = os.path.join(TRAIN_DIR,car_class)
     te_path = os.path.join(TEST_DIR,car_class)
-    for c in os.listdir(tr_path):
-        os.remove(os.path.join(tr_path,c))
-    for c in os.listdir(te_path):
-        os.remove(os.path.join(te_path,c))
+    if os.path.exists(tr_path):
+        for c in os.listdir(tr_path):
+            os.remove(os.path.join(tr_path,c))
+    if os.path.exists(te_path):
+        for c in os.listdir(te_path):
+            os.remove(os.path.join(te_path,c))
     os.removedirs(tr_path)
     os.removedirs(te_path)
     os.makedirs(tr_path)
@@ -79,8 +81,8 @@ for cc in os.listdir(TEST_DIR):
 
 # some needed variables
 img_width, img_height = 224, 224
-epochs = 3
-batch_size = 32
+epochs = 100
+batch_size = 8
 
 if K.image_data_format() == 'channels_first':
     input_shape = (3, img_width, img_height)
