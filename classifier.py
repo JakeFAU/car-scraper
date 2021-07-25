@@ -10,6 +10,7 @@ import io
 import shutil
 import cv2
 
+import tensorflow as tf
 import numpy as np
 
 # create the base pre-trained model
@@ -112,13 +113,21 @@ validation_generator = test_datagen.flow_from_directory(
     batch_size=batch_size,
     class_mode='categorical')
 
+# Callbacks
+cbacks = [
+    tf.keras.callbacks.EarlyStopping(patience=2),
+    tf.keras.callbacks.ModelCheckpoint(filepath='model.{epoch:02d}-{val_loss:.2f}.h5'),
+    tf.keras.callbacks.TensorBoard(log_dir='./logs'),
+]
+
 # fix hardcoded numbers
 model.fit(
     train_generator,
     steps_per_epoch=1812 // batch_size,
     epochs=epochs,
     validation_data=validation_generator,
-    validation_steps=487 // batch_size)
+    validation_steps=487 // batch_size,
+    callbacks = cbacks)
 
 # at this point, the top layers are well trained and we can start fine-tuning
 # convolutional layers from inception V3. We will freeze the bottom N layers
@@ -149,7 +158,8 @@ model.fit(
     steps_per_epoch=1812 // batch_size,
     epochs=epochs,
     validation_data=validation_generator,
-    validation_steps=487 // batch_size)
+    validation_steps=487 // batch_size,
+    callbacks = cbacks)
 
 
 
