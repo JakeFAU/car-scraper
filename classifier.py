@@ -46,13 +46,9 @@ for car_class in car_classes:
     tr_path = os.path.join(TRAIN_DIR,car_class)
     te_path = os.path.join(TEST_DIR,car_class)
     if os.path.exists(tr_path):
-        for c in os.listdir(tr_path):
-            os.remove(os.path.join(tr_path,c))
-            os.removedirs(tr_path)
+        shutil.rmtree(tr_path)
     if os.path.exists(te_path):
-        for c in os.listdir(te_path):
-            os.remove(os.path.join(te_path,c))
-            os.removedirs(te_path)
+        shutil.rmtree(te_path)
     os.makedirs(tr_path)
     os.makedirs(te_path)
 
