@@ -6,6 +6,7 @@ import urllib
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
 from selenium.webdriver.common.keys import Keys
 import json
+import shutil
 
 #Install Driver
 driver = webdriver.Edge(EdgeChromiumDriverManager().install())
@@ -21,8 +22,9 @@ for make in cars:
         model = models['model']
 
         path = os.path.join("images",make,model)
-        if not os.path.exists(path):
-            os.makedirs(path)
+        if os.path.exists(path):
+            shutil.rmtree(path)
+        os.makedirs(path)
 
         query = make + " " + model + " front"
         driver.get('https://www.google.com/')
