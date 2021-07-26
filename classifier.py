@@ -14,28 +14,6 @@ import tensorflow as tf
 import numpy as np
 from tensorflow.python.keras import callbacks
 
-# create the base pre-trained model
-base_model = InceptionV3(weights='imagenet', include_top=False)
-
-# add a global spatial average pooling layer
-x = base_model.output
-x = GlobalAveragePooling2D()(x)
-# let's add a fully-connected layer
-x = Dense(1024, activation='relu')(x)
-# and a logistic layer -- let's say we have 9 classes
-predictions = Dense(9, activation='softmax')(x)
-
-# this is the model we will train
-model = Model(inputs=base_model.input, outputs=predictions)
-
-# first: train only the top layers (which were randomly initialized)
-# i.e. freeze all convolutional InceptionV3 layers
-for layer in base_model.layers:
-    layer.trainable = False
-
-# compile the model (should be done *after* setting layers to non-trainable)
-model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-
 
 # create the train and test directories
 FILTERED_BASE = "filtered_images"
@@ -53,22 +31,54 @@ for car_class in car_classes:
     os.makedirs(tr_path)
     os.makedirs(te_path)
 
+# some counting variables
+class_count = 0
+train_count = 0
+test_count = 0
 
 # train test split
 np.random.seed(42)
 filtered_classes = os.listdir(FILTERED_BASE)
 for filtered_class in filtered_classes:
+    class_count = class_count + 1
     filtered_path = os.path.join(FILTERED_BASE,filtered_class)
     filtered_images = os.listdir(filtered_path)
     for filtered_image in filtered_images:
         rnd = np.random.uniform(0,1)
         if rnd <= .2:
             save_path = os.path.join(TEST_DIR, filtered_class, filtered_image)
+            test_count = test_count + 1
         else:
             save_path = os.path.join(TRAIN_DIR, filtered_class, filtered_image)
+            train_count = train_count + 1
         img_path = os.path.join(filtered_path,filtered_image)
         img = image.load_img(img_path, target_size=(224, 224), interpolation="hamming")
         image.save_img(save_path, img)
+
+
+
+
+# create the base pre-trained model
+base_model = InceptionV3(weights='imagenet', include_top=False)
+
+# add a global spatial average pooling layer
+x = base_model.output
+x = GlobalAveragePooling2D()(x)
+# let's add a fully-connected layer
+x = Dense(1024, activation='relu')(x)
+# and a logistic layer -- let's say we have 9 classes
+predictions = Dense(class_count, activation='softmax')(x)
+
+# this is the model we will train
+model = Model(inputs=base_model.input, outputs=predictions)
+
+# first: train only the top layers (which were randomly initialized)
+# i.e. freeze all convolutional InceptionV3 layers
+for layer in base_model.layers:
+    layer.trainable = False
+
+# compile the model (should be done *after* setting layers to non-trainable)
+model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
 # stats
 for cc in os.listdir(TRAIN_DIR):
@@ -121,10 +131,10 @@ cbacks = [
 # fix hardcoded numbers
 model.fit(
     train_generator,
-    steps_per_epoch=1812 // batch_size,
+    steps_per_epoch=train_count // batch_size,
     epochs=epochs,
     validation_data=validation_generator,
-    validation_steps=487 // batch_size,
+    validation_steps=test_count // batch_size,
     callbacks = cbacks)
 
 # at this point, the top layers are well trained and we can start fine-tuning
@@ -153,10 +163,10 @@ model.compile(optimizer=SGD(learning_rate=0.0001, momentum=0.9), loss='categoric
 
 model.fit(
     train_generator,
-    steps_per_epoch=1812 // batch_size,
+    steps_per_epoch=train_count // batch_size,
     epochs=epochs,
     validation_data=validation_generator,
-    validation_steps=487 // batch_size,
+    validation_steps=test_count // batch_size,
     callbacks = cbacks)
 
 
