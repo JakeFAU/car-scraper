@@ -24,7 +24,7 @@ for make in cars:
         if not os.path.exists(path):
             os.makedirs(path)
 
-        query = make + " " + model + " exterior"
+        query = make + " " + model + " front"
         driver.get('https://www.google.com/')
         search = driver.find_element_by_name('q')
         search.send_keys(query,Keys.ENTER)
