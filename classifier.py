@@ -12,6 +12,7 @@ import cv2
 
 import tensorflow as tf
 import numpy as np
+from tensorflow.python.keras import callbacks
 
 # create the base pre-trained model
 base_model = InceptionV3(weights='imagenet', include_top=False)
@@ -111,7 +112,8 @@ validation_generator = test_datagen.flow_from_directory(
 
 # Callbacks
 cbacks = [
-    tf.keras.callbacks.EarlyStopping(patience=2),
+    tf.keras.callbacks.EarlyStopping(patience=5),
+    tf.keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=3, min_lr=0.001),
     tf.keras.callbacks.ModelCheckpoint(filepath='model.{epoch:02d}-{val_loss:.2f}.h5'),
     tf.keras.callbacks.TensorBoard(log_dir='./logs'),
 ]
@@ -123,6 +125,7 @@ model.fit(
     epochs=epochs,
     validation_data=validation_generator,
     validation_steps=487 // batch_size,
+    metrics=['accuracy'],
     callbacks = cbacks)
 
 # at this point, the top layers are well trained and we can start fine-tuning
@@ -155,6 +158,7 @@ model.fit(
     epochs=epochs,
     validation_data=validation_generator,
     validation_steps=487 // batch_size,
+    metrics=['accuracy'],
     callbacks = cbacks)
 
 
