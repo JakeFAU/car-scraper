@@ -1,33 +1,23 @@
-from tensorflow.keras.applications.resnet50 import ResNet50
+from tensorflow.keras.applications.inception_v3 import InceptionV3, decode_predictions
 from tensorflow.keras.preprocessing import image
-from tensorflow.keras.applications.resnet50 import preprocess_input, decode_predictions
 import numpy as np
 import os
 import cv2
+import requests
+import tempfile
 
-IMAGE_BASE = "images"
-LABELS = []
-make_dirs = os.listdir(IMAGE_BASE)
-model_dirs = []
-for make_dir in make_dirs:
-    mdir = os.listdir(os.path.join(IMAGE_BASE,make_dir))
-    for d in mdir:
-        model_dirs.append(os.path.join(IMAGE_BASE, make_dir, d))
+URL = "https://www.premierfinancialservices.com/wp-content/uploads/2020/03/1974-Porsche-911-Carrera-Coupe-RMS-.png"
+MODEL_WEIGHTS = "model.12-1.33.h5"
+base_model = InceptionV3(include_top=False)
+base_model.load_weights(MODEL_WEIGHTS)
 
-model = ResNet50(weights='imagenet')
-for model_dir in model_dirs:
-    print("Handling " + model_dir)
-    images = os.listdir(model_dir)
-    for img_name in images:
-        img_path = os.path.join(model_dir, img_name)
-        img = image.load_img(img_path, target_size=(224, 224), interpolation="hamming")
-        x = image.img_to_array(img)
-        x = np.expand_dims(x, axis=0)
-        x = preprocess_input(x)
+SAVE_FILE = tempfile.TemporaryFile()
 
-        preds = model.predict(x)
-        decoded_preds = decode_predictions(preds, top=3)[0]
-        for pred in decoded_preds:
-            LABELS.append(pred[1])
+response = requests.get(URL)
+SAVE_FILE.write(response.content)
+SAVE_FILE.close()
 
-print(np.unique(LABELS))
+preds = base_model.predict(SAVE_FILE)
+dec_preds = decode_predictions(preds)
+for dp in dec_preds:
+    print(dp)

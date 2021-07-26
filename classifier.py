@@ -171,7 +171,7 @@ model.fit(
 
 
 
-Y_pred = model.predict(validation_generator, 1050 // batch_size+1)
+Y_pred = model.predict(validation_generator, test_count // batch_size+1)
 y_pred = np.argmax(Y_pred, axis=1)
 print('Confusion Matrix')
 print(confusion_matrix(validation_generator.classes, y_pred))
