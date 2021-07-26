@@ -34,7 +34,7 @@ for layer in base_model.layers:
     layer.trainable = False
 
 # compile the model (should be done *after* setting layers to non-trainable)
-model.compile(optimizer='adam', loss='categorical_crossentropy')
+model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
 
 # create the train and test directories
@@ -125,7 +125,6 @@ model.fit(
     epochs=epochs,
     validation_data=validation_generator,
     validation_steps=487 // batch_size,
-    metrics=['accuracy'],
     callbacks = cbacks)
 
 # at this point, the top layers are well trained and we can start fine-tuning
@@ -147,7 +146,7 @@ for layer in model.layers[249:]:
 # we need to recompile the model for these modifications to take effect
 # we use SGD with a low learning rate
 from tensorflow.keras.optimizers import SGD
-model.compile(optimizer=SGD(learning_rate=0.0001, momentum=0.9), loss='categorical_crossentropy')
+model.compile(optimizer=SGD(learning_rate=0.0001, momentum=0.9), loss='categorical_crossentropy', metrics=['accuracy'],)
 
 # we train our model again (this time fine-tuning the top 2 inception blocks
 # alongside the top Dense layers
@@ -158,7 +157,6 @@ model.fit(
     epochs=epochs,
     validation_data=validation_generator,
     validation_steps=487 // batch_size,
-    metrics=['accuracy'],
     callbacks = cbacks)
 
 
