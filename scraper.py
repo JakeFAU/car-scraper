@@ -37,7 +37,7 @@ for make in cars:
         for i in range(200): 
             driver.execute_script('scrollBy("+ str(value) +",+100);')
             value += 100
-            time.sleep(1)
+            time.sleep(.5)
 
         elements = driver.find_elements_by_xpath('//img[contains(@class,"rg_i")]')
         count = 0
