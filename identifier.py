@@ -26,13 +26,14 @@ predictions = Dense(13, activation='softmax')(x)
 model = Model(inputs=base_model.input, outputs=predictions)
 model.load_weights(MODEL_WEIGHTS)
 
-SAVE_FILE = tempfile.TemporaryFile()
+SAVE_FILE = tempfile.NamedTemporaryFile()
+SAVE_PATH = SAVE_FILE.name
 
 response = requests.get(URL)
 SAVE_FILE.write(response.content)
 SAVE_FILE.close()
 
-img = image.load_img(SAVE_FILE, target_size=(224, 224), interpolation="hamming")
+img = image.load_img(SAVE_PATH, target_size=(224, 224), interpolation="hamming")
 
 preds = base_model.predict(img)
 dec_preds = decode_predictions(preds)
