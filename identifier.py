@@ -11,6 +11,7 @@ import tempfile
 
 URL = "https://cdni.autocarindia.com/ExtraImages/20201124023253_2021-Toyota-Camry-Hybrid-front.jpg"
 MODEL_WEIGHTS = "model_weights.h5"
+IMG_SIZE = (480,480)
 
 # create the base pre-trained model
 base_model = InceptionV3(include_top=False)
@@ -32,7 +33,7 @@ SAVE_PATH = SAVE_FILE.name
 response = requests.get(URL)
 SAVE_FILE.write(response.content)
 
-img = image.load_img(SAVE_PATH, target_size=(224, 224), interpolation="hamming")
+img = image.load_img(SAVE_PATH, target_size=IMG_SIZE, interpolation="hamming")
 img = image.img_to_array(img)
 img = np.expand_dims(img, axis=0)
 img = preprocess_input(img)
