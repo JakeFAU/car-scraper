@@ -123,9 +123,8 @@ validation_generator = test_datagen.flow_from_directory(
 
 # Callbacks
 cbacks = [
-    tf.keras.callbacks.EarlyStopping(patience=5),
+    tf.keras.callbacks.EarlyStopping(patience=5, restore_best_weights=True),
     tf.keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=3, min_lr=0.001),
-    tf.keras.callbacks.ModelCheckpoint(filepath='model.{epoch:02d}-{val_loss:.2f}.h5'),
     tf.keras.callbacks.TensorBoard(log_dir='./logs'),
 ]
 
@@ -170,7 +169,7 @@ model.fit(
     validation_steps=test_count // batch_size,
     callbacks = cbacks)
 
-
+model.save_weights('model_weights.h5')
 
 Y_pred = model.predict(validation_generator, test_count // batch_size+1)
 y_pred = np.argmax(Y_pred, axis=1)

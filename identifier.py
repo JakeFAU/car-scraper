@@ -10,7 +10,7 @@ import requests
 import tempfile
 
 URL = "https://cdni.autocarindia.com/ExtraImages/20201124023253_2021-Toyota-Camry-Hybrid-front.jpg"
-MODEL_WEIGHTS = "model.12-1.33.h5"
+MODEL_WEIGHTS = "model_weights.h5"
 
 # create the base pre-trained model
 base_model = InceptionV3(include_top=False)
