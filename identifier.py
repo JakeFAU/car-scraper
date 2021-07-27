@@ -31,7 +31,6 @@ SAVE_PATH = SAVE_FILE.name
 
 response = requests.get(URL)
 SAVE_FILE.write(response.content)
-SAVE_FILE.close()
 
 img = image.load_img(SAVE_PATH, target_size=(224, 224), interpolation="hamming")
 
@@ -39,3 +38,5 @@ preds = base_model.predict(img)
 dec_preds = decode_predictions(preds)
 for dp in dec_preds:
     print(dp)
+
+SAVE_FILE.close()
