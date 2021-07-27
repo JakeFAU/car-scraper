@@ -9,11 +9,10 @@ import cv2
 import requests
 import tempfile
 
-from .classifier import IMG_SIZE
-
+IMG_SIZE = (480,480)
 URL = "https://cdni.autocarindia.com/ExtraImages/20201124023253_2021-Toyota-Camry-Hybrid-front.jpg"
 MODEL_WEIGHTS = "model_weights.h5"
-CLASS_COUNT = 13
+CLASS_COUNT = 24
 
 # create the base pre-trained model
 base_model = InceptionV3(include_top=False)
@@ -46,6 +45,6 @@ preds = np.squeeze(preds)
 catagories =sorted(os.listdir("classification/train"))
 for i, cat in enumerate(catagories):
     results.append((cat,preds[i]))
-
+results.sort(key=lambda a: a[1])
 print(results)
 SAVE_FILE.close()
