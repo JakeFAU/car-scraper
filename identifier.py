@@ -9,7 +9,7 @@ import cv2
 import requests
 import tempfile
 
-URL = "https://www.premierfinancialservices.com/wp-content/uploads/2020/03/1974-Porsche-911-Carrera-Coupe-RMS-.png"
+URL = "https://cdni.autocarindia.com/ExtraImages/20201124023253_2021-Toyota-Camry-Hybrid-front.jpg"
 MODEL_WEIGHTS = "model.12-1.33.h5"
 
 # create the base pre-trained model
