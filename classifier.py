@@ -22,6 +22,7 @@ TEST_DIR = os.path.join(CLASS_DIR,"test")
 TRAIN_DIR = os.path.join(CLASS_DIR,"train")
 IMG_SIZE = (480,480)
 car_classes = os.listdir(FILTERED_BASE)
+print("Car Class Count=" + str(len(car_classes)))
 for car_class in car_classes:
     tr_path = os.path.join(TRAIN_DIR,car_class)
     te_path = os.path.join(TEST_DIR,car_class)
