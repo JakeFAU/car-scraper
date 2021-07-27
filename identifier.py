@@ -1,4 +1,4 @@
-from tensorflow.keras.applications.inception_v3 import InceptionV3, decode_predictions
+from tensorflow.keras.applications.inception_v3 import InceptionV3, decode_predictions, preprocess_input
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Dense, GlobalAveragePooling2D
@@ -33,6 +33,9 @@ response = requests.get(URL)
 SAVE_FILE.write(response.content)
 
 img = image.load_img(SAVE_PATH, target_size=(224, 224), interpolation="hamming")
+img = image.img_to_array(img)
+img = np.expand_dims(img, axis=0)
+img = preprocess_input(img)
 
 preds = base_model.predict(img)
 dec_preds = decode_predictions(preds)
