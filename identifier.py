@@ -11,7 +11,7 @@ import tempfile
 
 IMG_SIZE = (480,480)
 URL = "https://cdni.autocarindia.com/ExtraImages/20201124023253_2021-Toyota-Camry-Hybrid-front.jpg"
-MODEL_WEIGHTS = "model_weights.h5"
+MODEL_WEIGHTS = "big_model_weights.h5"
 CLASS_COUNT = 25
 
 # create the base pre-trained model
