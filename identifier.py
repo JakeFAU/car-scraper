@@ -37,8 +37,10 @@ img = image.img_to_array(img)
 img = np.expand_dims(img, axis=0)
 img = preprocess_input(img)
 
+results = []
 preds = model(img, training=False)
-decoded_preds = decode_predictions(preds, top=3)[0]
-print(decode_predictions)
+catagories = os.listdir("classification/train")
+for i, cat in enumerate(catagories):
+    results.append((cat,preds[i]))
 
 SAVE_FILE.close()
