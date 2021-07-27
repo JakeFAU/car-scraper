@@ -37,7 +37,8 @@ img = image.img_to_array(img)
 img = np.expand_dims(img, axis=0)
 img = preprocess_input(img)
 
-preds = base_model(img, training=False)
-print(preds)
+preds = model(img, training=False)
+decoded_preds = decode_predictions(preds, top=3)[0]
+print(decode_predictions)
 
 SAVE_FILE.close()
