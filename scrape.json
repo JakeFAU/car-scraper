@@ -18,6 +18,9 @@
 			},
 			{
 				"model": "Pilot"
+			},
+			{
+				"model": "CR-V"
 			}
 		],
 		"Toyota": [{
@@ -28,6 +31,15 @@
 			},
 			{
 				"model": "Highlander"
+			},
+			{
+				"model": "RAV4"
+			},
+			{
+				"model": "Tacoma"
+			},
+			{
+				"model" : "4Runner"
 			}
 		],
 		"Ferrari" :[{
@@ -42,6 +54,52 @@
 			},
 			{
 				"model" : "Cayenne"
+			}
+		],
+		"Ford":[{
+				"model" : "F-Series"
+			},
+			{
+				"model" : "Explorer"
+			},
+			{
+				"model" : "Escape"
+			},
+			{
+				"model" : "Transit"
+			}
+		],
+		"Chevrolet":[{
+				"model" : "Silverado"
+			},
+			{
+				"model" : "Equinox"
+			}
+		],
+		"Dodge":[{
+				"model" : "Ram"
+			}
+		],
+		"GMC":[{
+				"model" : "Sierra"
+			}
+		],
+		"Jeep":[{
+				"model" : "Grand Cherokee"
+			},
+			{
+				"model" : "Wrangler"
+			}
+		],
+		"Subaru":[{
+				"model" : "Forester"
+			},
+			{
+				"model" : "Outback"
+			}
+		],
+		"Mazda":[{
+				"model" : "CX-5"
 			}
 		]
 	}

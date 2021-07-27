@@ -9,9 +9,11 @@ import cv2
 import requests
 import tempfile
 
+from .classifier import IMG_SIZE
+
 URL = "https://cdni.autocarindia.com/ExtraImages/20201124023253_2021-Toyota-Camry-Hybrid-front.jpg"
 MODEL_WEIGHTS = "model_weights.h5"
-IMG_SIZE = (480,480)
+CLASS_COUNT = 13
 
 # create the base pre-trained model
 base_model = InceptionV3(include_top=False)
@@ -21,7 +23,7 @@ x = GlobalAveragePooling2D()(x)
 # let's add a fully-connected layer
 x = Dense(1024, activation='relu')(x)
 # and a logistic layer -- let's say we have 13 classes
-predictions = Dense(13, activation='softmax')(x)
+predictions = Dense(CLASS_COUNT, activation='softmax')(x)
 
 # this is the model we will train
 model = Model(inputs=base_model.input, outputs=predictions)
