@@ -20,6 +20,7 @@ FILTERED_BASE = "filtered_images"
 CLASS_DIR = "classification"
 TEST_DIR = os.path.join(CLASS_DIR,"test")
 TRAIN_DIR = os.path.join(CLASS_DIR,"train")
+IMG_SIZE = (480,480)
 car_classes = os.listdir(FILTERED_BASE)
 for car_class in car_classes:
     tr_path = os.path.join(TRAIN_DIR,car_class)
@@ -52,7 +53,7 @@ for filtered_class in filtered_classes:
             save_path = os.path.join(TRAIN_DIR, filtered_class, filtered_image)
             train_count = train_count + 1
         img_path = os.path.join(filtered_path,filtered_image)
-        img = image.load_img(img_path, target_size=(224, 224), interpolation="hamming")
+        img = image.load_img(img_path, target_size=IMG_SIZE, interpolation="hamming")
         image.save_img(save_path, img)
 
 
@@ -88,7 +89,7 @@ for cc in os.listdir(TEST_DIR):
     print("Test " + cc + " has " + str(len(os.listdir(os.path.join(TEST_DIR,cc)))))
 
 # some needed variables
-img_width, img_height = 224, 224
+img_width, img_height = IMG_SIZE
 epochs = 100
 batch_size = 4
 
@@ -175,6 +176,6 @@ Y_pred = model.predict(validation_generator, test_count // batch_size+1)
 y_pred = np.argmax(Y_pred, axis=1)
 print('Confusion Matrix')
 print(confusion_matrix(validation_generator.classes, y_pred))
-print('Classification Report')
+print('Clasnp.argmax(Y_pred, axis=1)sification Report')
 target_names = car_classes
 print(classification_report(validation_generator.classes, y_pred, target_names=target_names))
