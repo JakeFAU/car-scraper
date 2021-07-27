@@ -13,13 +13,13 @@ URL = "https://www.premierfinancialservices.com/wp-content/uploads/2020/03/1974-
 MODEL_WEIGHTS = "model.12-1.33.h5"
 
 # create the base pre-trained model
-base_model = InceptionV3(weights='imagenet', include_top=False)
+base_model = InceptionV3(include_top=False)
 # add a global spatial average pooling layer
 x = base_model.output
 x = GlobalAveragePooling2D()(x)
 # let's add a fully-connected layer
 x = Dense(1024, activation='relu')(x)
-# and a logistic layer -- let's say we have 9 classes
+# and a logistic layer -- let's say we have 13 classes
 predictions = Dense(13, activation='softmax')(x)
 
 # this is the model we will train
@@ -38,8 +38,6 @@ img = np.expand_dims(img, axis=0)
 img = preprocess_input(img)
 
 preds = base_model.predict(img)
-dec_preds = decode_predictions(preds)[0]
-for dp in dec_preds:
-    print(dp)
+print(preds)
 
 SAVE_FILE.close()
