@@ -11,14 +11,20 @@ import tempfile
 
 URL = "https://www.premierfinancialservices.com/wp-content/uploads/2020/03/1974-Porsche-911-Carrera-Coupe-RMS-.png"
 MODEL_WEIGHTS = "model.12-1.33.h5"
-base_model = InceptionV3(include_top=False)
+
+# create the base pre-trained model
+base_model = InceptionV3(weights='imagenet', include_top=False)
+# add a global spatial average pooling layer
 x = base_model.output
 x = GlobalAveragePooling2D()(x)
 # let's add a fully-connected layer
 x = Dense(1024, activation='relu')(x)
-# and a logistic layer -- let's say we have 13 classes
+# and a logistic layer -- let's say we have 9 classes
 predictions = Dense(13, activation='softmax')(x)
-base_model.load_weights(MODEL_WEIGHTS)
+
+# this is the model we will train
+model = Model(inputs=base_model.input, outputs=predictions)
+model.load_weights(MODEL_WEIGHTS)
 
 SAVE_FILE = tempfile.TemporaryFile()
 
