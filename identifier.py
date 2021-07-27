@@ -38,7 +38,7 @@ img = np.expand_dims(img, axis=0)
 img = preprocess_input(img)
 
 preds = base_model.predict(img)
-dec_preds = decode_predictions(preds)
+dec_preds = decode_predictions(preds)[0]
 for dp in dec_preds:
     print(dp)
 
