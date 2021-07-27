@@ -40,8 +40,9 @@ img = preprocess_input(img)
 results = []
 preds = model(img, training=False)
 preds = np.squeeze(preds)
-catagories = os.listdir("classification/train")
+catagories =sorted(os.listdir("classification/train"))
 for i, cat in enumerate(catagories):
     results.append((cat,preds[i]))
 
+print(results)
 SAVE_FILE.close()
