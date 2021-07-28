@@ -10,7 +10,7 @@ import requests
 import tempfile
 
 IMG_SIZE = (480,480)
-URL = "https://icdn9.digitaltrends.com/image/digitaltrends/2019-toyota-corolla-hatchback_5-1500x1000.jpg"
+URL = "https://www.pickles.com.au/PicklesAuctions/media/Blog/toyota-camry_g.png"
 MODEL_WEIGHTS = "big_model_weights.h5"
 CLASS_COUNT = 30
 
@@ -45,6 +45,6 @@ preds = np.squeeze(preds)
 catagories =sorted(os.listdir("classification/train"))
 for i, cat in enumerate(catagories):
     results.append((cat,preds[i]))
-results.sort(key=lambda a: a[1])
+results.sort(key=lambda a: a[1], reverse=True)
 print(results)
 SAVE_FILE.close()
