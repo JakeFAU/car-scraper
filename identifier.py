@@ -10,9 +10,9 @@ import requests
 import tempfile
 
 IMG_SIZE = (480,480)
-URL = "https://cdni.autocarindia.com/ExtraImages/20201124023253_2021-Toyota-Camry-Hybrid-front.jpg"
+URL = "https://www.carscoops.com/wp-content/uploads/2020/05/Ford-F-150-1.jpg
 MODEL_WEIGHTS = "big_model_weights.h5"
-CLASS_COUNT = 25
+CLASS_COUNT = 30
 
 # create the base pre-trained model
 base_model = InceptionV3(include_top=False)
