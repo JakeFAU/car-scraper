@@ -10,7 +10,7 @@ import requests
 import tempfile
 
 IMG_SIZE = (480,480)
-URL = "https://www.pickles.com.au/PicklesAuctions/media/Blog/toyota-camry_g.png"
+URL = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fs3.i-micronews.com%2Fuploads%2F2020%2F06%2FToyota1.jpg&f=1&nofb=1"
 MODEL_WEIGHTS = "big_model_weights.h5"
 CLASS_COUNT = 30
 
