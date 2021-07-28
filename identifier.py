@@ -10,7 +10,7 @@ import requests
 import tempfile
 
 IMG_SIZE = (480,480)
-URL = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fs3.i-micronews.com%2Fuploads%2F2020%2F06%2FToyota1.jpg&f=1&nofb=1"
+URL = "https://assets.newcars.com/images/car-pictures/original/2020-Toyota-RAV4-SUV-LE-4dr-Front-wheel-Drive-Photo.png"
 MODEL_WEIGHTS = "big_model_weights.h5"
 CLASS_COUNT = 30
 
