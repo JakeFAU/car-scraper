@@ -10,7 +10,7 @@ import requests
 import tempfile
 
 IMG_SIZE = (480,480)
-URL = "https://www.carscoops.com/wp-content/uploads/2020/05/Ford-F-150-1.jpg
+URL = "https://icdn9.digitaltrends.com/image/digitaltrends/2019-toyota-corolla-hatchback_5-1500x1000.jpg"
 MODEL_WEIGHTS = "big_model_weights.h5"
 CLASS_COUNT = 30
 
