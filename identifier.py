@@ -10,7 +10,7 @@ import requests
 import tempfile
 
 IMG_SIZE = (480,480)
-URL = "https://assets.newcars.com/images/car-pictures/original/2020-Toyota-RAV4-SUV-LE-4dr-Front-wheel-Drive-Photo.png"
+URL = "https://assets.newcars.com/images/car-pictures/original/2021-Jeep-Wrangler-SUV-Sport-2dr-4x4-Photo-25.png"
 MODEL_WEIGHTS = "big_model_weights.h5"
 CLASS_COUNT = 30
 

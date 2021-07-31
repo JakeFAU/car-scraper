@@ -25,8 +25,8 @@ def isCar(img_path :str) -> bool:
     return False
 
 
-INPUT_BASE = "images"
-OUTPUT_DIR = "filtered_images"
+INPUT_BASE = "images-generation"
+OUTPUT_DIR = "filtered_images-generation"
 make_dirs = os.listdir(INPUT_BASE)
 model_dirs = []
 for make_dir in make_dirs:
