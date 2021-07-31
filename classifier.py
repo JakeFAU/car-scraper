@@ -16,7 +16,7 @@ from tensorflow.python.keras import callbacks
 
 
 # create the train and test directories
-FILTERED_BASE = "filtered_images"
+FILTERED_BASE = "filtered_images-generation"
 CLASS_DIR = "classification"
 TEST_DIR = os.path.join(CLASS_DIR,"test")
 TRAIN_DIR = os.path.join(CLASS_DIR,"train")
